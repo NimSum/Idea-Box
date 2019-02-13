@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Idea Box</title>
+</head>
+<body>
+  <header>
+    <h1><span class="header-title--color">ideabox</span>triples</h1>
+    <input id="search" class="header-search-input rounded-edges" type="text" placeholder="Search">
+  </header>
+  <main>
+      <form action="#">
+        <label class="lighter-font" for="idea-title">Title</label><br/>
+        <input class="rounded-edges" id="idea-title" name="idea-title" type="text"><br/>
+        <label class="lighter-font" for="idea-body">Body</label><br/>
+        <textarea class="rounded-edges" id="idea-body" name="idea-body" type="text"></textarea><br/>
+        <button class="rounded-edges" id="save-btn" type="submit">Save</button>
+      </form>
+  </main>
+  <section id="card-section">
+  </section>
+</body>
+<script src="idea.js"></script>
+<script src="main.js"></script>
+</html>

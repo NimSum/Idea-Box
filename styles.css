@@ -1,0 +1,125 @@
+* {
+ /* border: 1px dotted gray;*/
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  margin: 0;
+}
+/*create a class for font weights*/
+/*create a selector for main input and button and set % width rule*/
+header {
+  background-color: #322A30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 2% 0 3%;
+}
+
+h1 {
+  color: #fff;
+}
+
+.header-title--color {
+  color: #AFA5CD;
+}
+
+.header-search-input {
+  height: 20px;
+  width: 25%;
+}
+
+main {
+  background-color: #EDF2F2;
+  display: flex;
+  justify-content: center;
+}
+
+main form {
+  width: 50%;
+  margin: 20px auto;
+  color: #6A686A;
+}
+
+main form input,
+main form textarea {
+  width: 99%;
+  padding: 1px;
+  height: 22px;
+  margin: 5px 0px 10px;
+  border: 1px solid #D2CCCD;
+}
+
+main form textarea {
+  height: 53px;
+  resize: none;
+}
+
+button {
+  width: 100%;
+  background-color: #5E5C6B;
+  color: #FFF;
+  height: 30px;
+  font-weight: 800; 
+  font-size: .9rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding-top: 10px;
+}
+
+article {
+  width: 50%;
+  border: 1px solid #D2CCCD;
+  margin: 10px 0px;
+}
+article div {
+  border-top: 1px solid #D2CCCD;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+#delete-btn {
+  position: absolute;
+  right: 0;
+}
+.rounded-edges {
+  border-radius: 5px;
+}
+
+.lighter-font {
+  font-weight: 300;
+}
+
+h2,
+article p {
+  padding: 0px 16px;
+}
+
+article p {
+  margin-top: 8px;
+  color: #6A686A;
+
+}
+
+h2 {
+  margin: 12px 0px 5px;
+}
+
+img {
+  width: 20px;
+  padding: 3px 7px 1px;
+}
+
+h5 {
+  padding-left: 10px;
+  margin: 0px 0px;
+}
+
+
+
+
