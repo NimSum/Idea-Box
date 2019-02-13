@@ -12,11 +12,13 @@ cardSection.addEventListener('click', deleteCard);
 function createCard(event){
   var ideaTitle = titleInput.value;
   var ideaBody = ideaInput.value;
+  // var testIdea = new Idea(timeStamp, ideaTitle, ideaBody);
+  // testIdea.saveToStorage(testIdea);
 
-  cardSection.innerHTML = 
+  cardSection.innerHTML =
   `<article class="rounded-edges">
       <h2>${ideaTitle}</h2>
-      <p class="lighter-font">${ideaBody}</p>
+      <p class="lighter-font" contenteditable="true">${ideaBody}</p>
       <div>
         <a href="#" id="downvote-btn"><img src="images/downvote.svg" alt="downvote quality button"></a>
         <a href="#" id="upvote-btn"><img src="images/upvote.svg" alt="upvote quality button"></a>
@@ -33,3 +35,11 @@ function deleteCard(event){
     event.preventDefault();
   }
 }
+
+
+// var timeStamp = Math.floor(Date.now() / 1000);
+// console.log(timeStamp);
+
+
+
+
