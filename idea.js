@@ -4,35 +4,36 @@ class Idea {
     this.title = title;
     this.body = body;
     this.quality = quality;
-    this.indexFound;
-    this.pullFromStorage = JSON.parse(localStorage.getItem('card'));
+    // this.indexFound;
+    // this.pullFromStorage = JSON.parse(localStorage.getItem('card'));
   }
 
   saveToStorage(array) {
+    localStorage.clear();
     localStorage.setItem('card', JSON.stringify(array));
   }
 
-  deleteFromStorage(id) {
-    this.getIndex(id);
-    this.pullFromStorage.splice(this.indexFound, 1)
-    this.saveToStorage(this.pullFromStorage);
-  }
+  // deleteFromStorage(id) {
+  //   this.getIndex(id);
+  //   this.pullFromStorage.splice(this.indexFound, 1)
+  //   this.saveToStorage(this.pullFromStorage);
+  // }
 
-  updateContent(id, body) {
-    this.getIndex(id);
-    this.pullFromStorage[this.indexFound].body = body;
-    this.saveToStorage(this.pullFromStorage);
-  }
+  // updateContent(id, body) {
+  //   this.getIndex(id);
+  //   this.pullFromStorage[this.indexFound].body = body;
+  //   this.saveToStorage(this.pullFromStorage);
+  // }
 
-  updateQuality(id, quality) {
-    this.getIndex(id);
-    this.pullFromStorage[this.indexFound].quality = quality;
-    this.saveToStorage(this.pullFromStorage);
-  }
+  // updateQuality(id, quality) {
+  //   this.getIndex(id);
+  //   this.pullFromStorage[this.indexFound].quality = quality;
+  //   this.saveToStorage(this.pullFromStorage);
+  // }
 
-  getIndex(id) {
-    this.indexFound = this.pullFromStorage.map(idea => idea.id).indexOf(id);
-  }
+  // getIndex(id) {
+  //   this.indexFound = this.pullFromStorage.map(idea => idea.id).indexOf(id);
+  // }
 }
 
 // // //TESTING CODE BELOW
