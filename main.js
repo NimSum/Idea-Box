@@ -3,10 +3,15 @@ var titleInput = document.querySelector('#idea-title');
 var ideaInput = document.querySelector('#idea-body');
 var saveBtn = document.querySelector('#save-btn');
 var cardSection = document.querySelector('#card-section');
-var ideaArticle = document.querySelector('article')
-
-var ideaArray = [];
+var ideaArticle = document.querySelector('article');
+// var upvoteBtn = document.querySelector('#upvote-btn');
+// var downvoteBtn = document.querySelector('#downvote-btn');
+// var ideaQuality = document.querySelector('#quality');
+var ideaArray = JSON.parse(localStorage.getItem('card')) || [];
+  console.log(ideaArray);
 var newIdea;
+
+
 saveBtn.addEventListener('click', createCard);
 cardSection.addEventListener('click', deleteCard);
 window.addEventListener('load', loadPreviousIdeas);
@@ -18,17 +23,16 @@ function createCard(event){
 
   var ideaTitle = titleInput.value;
   var ideaBody = ideaInput.value;
-  // var testIdea = new Idea(timeStamp, ideaTitle, ideaBody);
-  // testIdea.saveToStorage(testIdea);
   // Data will replace name with data attribute
+  //use data attribute for time stamp
   cardSection.innerHTML =
   `<article class="rounded-edges" id="${timeStamp}">
       <h2>${ideaTitle}</h2>
       <p class="lighter-font" contenteditable="true">${ideaBody}</p>
       <div>
-        <a href="#" id="downvote-btn"><img src="images/downvote.svg" alt="downvote quality button"></a>
-        <a href="#" id="upvote-btn"><img src="images/upvote.svg" alt="upvote quality button"></a>
-        <h5>Quality: <span>Swill</span></h5>
+        <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
+        <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
+        <h5>Quality: <span id="quality">Swill</span></h5>
         <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
       </div>
     </article>` + cardSection.innerHTML; 
@@ -49,29 +53,50 @@ function deleteCard(event){
   }
 }
 
+var upvoteBtn, downvoteBtn, ideaQuality;
 function loadPreviousIdeas(e) {
-  var pullFromStorage = JSON.parse(localStorage.getItem('card'));
-  for (var i = 0; i < pullFromStorage.length; i++) {
-    ideaArray.push(pullFromStorage[i]);
-  }
-  for (var i = 0; i < pullFromStorage.length; i++) {
-    cardSection.innerHTML =
-  `<article class="rounded-edges" id="${pullFromStorage[i].id}">
-      <h2>${pullFromStorage[i].title}</h2>
-      <p class="lighter-font" contenteditable="true">${pullFromStorage[i].body}</p>
+  for (var i = 0; i < ideaArray.length; i++) {
+    cardSection.innerHTML +=
+  `<article class="rounded-edges" id="${ideaArray[i].id}">
+      <h2>${ideaArray[i].title}</h2>
+      <p class="lighter-font" contenteditable="true">${ideaArray[i].body}</p>
       <div>
-        <a href="#" id="downvote-btn"><img src="images/downvote.svg" alt="downvote quality button"></a>
-        <a href="#" id="upvote-btn"><img src="images/upvote.svg" alt="upvote quality button"></a>
-        <h5>Quality: <span>Swill</span></h5>
+        <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
+        <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
+        <h5>Quality: <span id="quality">Swill</span></h5>
         <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
       </div>
-    </article>` + cardSection.innerHTML; 
-
+    </article>`
   }
-  console.log(pullFromStorage.length);
+  queryButtons();
   e.preventDefault();
 }
 
+function upvoteQual(e) {
+  e.preventDefault();
+  console.log(e.target.parentElement.parentElement.children)
+  console.log(ideaQuality.innerText)
+  if (e.target.classList.contains('upvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Swill') {
+    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Plausible'
+  } else if (e.target.classList.contains('upvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Plausible'){
+    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Genius'
+  } else if (e.target.classList.contains('downvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Genius') {
+    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Plausible'
+  } else if (e.target.classList.contains('downvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Plausible'){
+    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Swill'
+  }
+}
+
+
+function queryButtons() {
+  upvoteBtn = document.querySelector('.upvote-btn');
+  downvoteBtn = document.querySelector('#downvote-btn');
+  ideaQuality = document.querySelector('#quality');
+
+  cardSection.addEventListener('click', upvoteQual);
+// downvoteBtn.addEventListener('click', downvoteQual);
+}
+//refactor template literal
 
 
 
