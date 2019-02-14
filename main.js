@@ -47,7 +47,9 @@ function deleteCard(event){
 
 function loadPreviousIdeas(e) {
   var pullFromStorage = JSON.parse(localStorage.getItem('card'));
-    ideaArray.push(pullFromStorage);
+  for (var i = 0; i < pullFromStorage.length; i++) {
+    ideaArray.push(pullFromStorage[i]);
+  }
   for (var i = 0; i < pullFromStorage.length; i++) {
     cardSection.innerHTML =
   `<article class="rounded-edges" name="${pullFromStorage[i].id}">
