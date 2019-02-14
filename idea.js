@@ -5,7 +5,7 @@ class Idea {
     this.body = body;
     this.quality = quality;
     // this.indexFound;
-    // this.pullFromStorage = JSON.parse(localStorage.getItem('card'));
+    this.pullFromStorage = JSON.parse(localStorage.getItem('card'));
   }
 
   saveToStorage(array) {
@@ -13,11 +13,11 @@ class Idea {
     localStorage.setItem('card', JSON.stringify(array));
   }
 
-  // deleteFromStorage(id) {
-  //   this.getIndex(id);
-  //   this.pullFromStorage.splice(this.indexFound, 1)
-  //   this.saveToStorage(this.pullFromStorage);
-  // }
+  deleteFromStorage(id) {
+    var indexFound = this.getIndex(id);
+    this.pullFromStorage.splice(indexFound, 1)
+    this.saveToStorage(this.pullFromStorage);
+  }
 
   // updateContent(id, body) {
   //   this.getIndex(id);
@@ -31,9 +31,10 @@ class Idea {
   //   this.saveToStorage(this.pullFromStorage);
   // }
 
-  // getIndex(id) {
-  //   this.indexFound = this.pullFromStorage.map(idea => idea.id).indexOf(id);
-  // }
+  getIndex(id) {
+    return this.pullFromStorage.map(idea => idea.id).indexOf(id);
+  }
+
 }
 
 // // //TESTING CODE BELOW

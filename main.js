@@ -3,6 +3,7 @@ var titleInput = document.querySelector('#idea-title');
 var ideaInput = document.querySelector('#idea-body');
 var saveBtn = document.querySelector('#save-btn');
 var cardSection = document.querySelector('#card-section');
+var ideaArticle = document.querySelector('article')
 
 var ideaArray = [];
 var newIdea;
@@ -21,7 +22,7 @@ function createCard(event){
   // testIdea.saveToStorage(testIdea);
   // Data will replace name with data attribute
   cardSection.innerHTML =
-  `<article class="rounded-edges" name="${timeStamp}">
+  `<article class="rounded-edges" id="${timeStamp}">
       <h2>${ideaTitle}</h2>
       <p class="lighter-font" contenteditable="true">${ideaBody}</p>
       <div>
@@ -40,6 +41,9 @@ function createCard(event){
 
 function deleteCard(event){
    if(event.target.classList.contains('delete-btn')){
+    var articleId = event.target.parentElement.parentElement.parentElement.id;
+    var deleteInstance = new Idea();
+    deleteInstance.deleteFromStorage(parseInt(articleId));
     event.target.parentElement.parentElement.parentElement.remove();
     event.preventDefault();
   }
@@ -52,7 +56,7 @@ function loadPreviousIdeas(e) {
   }
   for (var i = 0; i < pullFromStorage.length; i++) {
     cardSection.innerHTML =
-  `<article class="rounded-edges" name="${pullFromStorage[i].id}">
+  `<article class="rounded-edges" id="${pullFromStorage[i].id}">
       <h2>${pullFromStorage[i].title}</h2>
       <p class="lighter-font" contenteditable="true">${pullFromStorage[i].body}</p>
       <div>
