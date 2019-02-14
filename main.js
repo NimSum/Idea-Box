@@ -4,11 +4,8 @@ var ideaInput = document.querySelector('#idea-body');
 var saveBtn = document.querySelector('#save-btn');
 var cardSection = document.querySelector('#card-section');
 var ideaArticle = document.querySelector('article');
-// var upvoteBtn = document.querySelector('#upvote-btn');
-// var downvoteBtn = document.querySelector('#downvote-btn');
-// var ideaQuality = document.querySelector('#quality');
+
 var ideaArray = JSON.parse(localStorage.getItem('card')) || [];
-  console.log(ideaArray);
 var newIdea;
 
 
@@ -37,9 +34,9 @@ function createCard(event){
       </div>
     </article>` + cardSection.innerHTML; 
     newIdea = new Idea(timeStamp, ideaTitle, ideaBody);
-    ideaArray.unshift(newIdea);
-    console.log(ideaArray);
+    ideaArray.unshift(newIdea);;
     newIdea.saveToStorage(ideaArray);
+    queryButtons();
     event.preventDefault();
 }
 
@@ -63,7 +60,7 @@ function loadPreviousIdeas(e) {
       <div>
         <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
         <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
-        <h5>Quality: <span id="quality">Swill</span></h5>
+        <h5>Quality: <span id="quality">${ideaArray[i].quality}</span></h5>
         <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
       </div>
     </article>`
@@ -74,16 +71,21 @@ function loadPreviousIdeas(e) {
 
 function upvoteQual(e) {
   e.preventDefault();
-  console.log(e.target.parentElement.parentElement.children)
-  console.log(ideaQuality.innerText)
-  if (e.target.classList.contains('upvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Swill') {
-    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Plausible'
-  } else if (e.target.classList.contains('upvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Plausible'){
-    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Genius'
-  } else if (e.target.classList.contains('downvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Genius') {
-    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Plausible'
-  } else if (e.target.classList.contains('downvote-btn') && e.target.parentElement.parentElement.children[2].innerText === 'Quality: Plausible'){
-    e.target.parentElement.parentElement.children[2].innerText = 'Quality: Swill'
+  var indexFound = e.target.parentElement.parentElement.parentElement.id;
+  var newInstance = new Idea();
+  var qualityElem = e.target.parentElement.parentElement.children[2];
+  if (e.target.classList.contains('upvote-btn') && qualityElem.innerText === 'Quality: Swill') {
+    qualityElem.innerText = 'Quality: Plausible';
+    newInstance.updateQuality(parseInt(indexFound), 'Plausible')
+  } else if (e.target.classList.contains('upvote-btn') && qualityElem.innerText === 'Quality: Plausible'){
+    qualityElem.innerText = 'Quality: Genius';
+    newInstance.updateQuality(parseInt(indexFound), 'Genius')
+  } else if (e.target.classList.contains('downvote-btn') && qualityElem.innerText === 'Quality: Genius') {
+    qualityElem.innerText = 'Quality: Plausible';
+    newInstance.updateQuality(parseInt(indexFound), 'Plausible')
+  } else if (e.target.classList.contains('downvote-btn') && qualityElem.innerText === 'Quality: Plausible'){
+    qualityElem.innerText = 'Quality: Swill';
+    newInstance.updateQuality(parseInt(indexFound), 'Swill')
   }
 }
 
