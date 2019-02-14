@@ -18,16 +18,14 @@ class Idea {
   }
 
   // updateContent(id, body) {
-  //   this.getIndex(id);
-  //   this.pullFromStorage[this.indexFound].body = body;
+  //   this.pullFromStorage[this.getIndex(id)].body = body;
   //   this.saveToStorage(this.pullFromStorage);
   // }
 
-  // updateQuality(id, quality) {
-  //   this.getIndex(id);
-  //   this.pullFromStorage[this.indexFound].quality = quality;
-  //   this.saveToStorage(this.pullFromStorage);
-  // }
+  updateQuality(id, quality) {
+    this.pullFromStorage[this.getIndex(id)].quality = quality;
+    this.saveToStorage(this.pullFromStorage);
+  }
 
   getIndex(id) {
     return this.pullFromStorage.map(idea => idea.id).indexOf(id);
