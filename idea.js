@@ -9,13 +9,11 @@ class Idea {
   }
 
   saveToStorage(array) {
-    localStorage.clear();
     localStorage.setItem('card', JSON.stringify(array));
   }
 
   deleteFromStorage(id) {
-    var indexFound = this.getIndex(id);
-    this.pullFromStorage.splice(indexFound, 1)
+    this.pullFromStorage.splice(this.getIndex(id), 1)
     this.saveToStorage(this.pullFromStorage);
   }
 
