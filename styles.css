@@ -18,15 +18,18 @@ header {
 
 h1 {
   color: #fff;
+  letter-spacing: 1px;
 }
 
 .header-title--color {
   color: #AFA5CD;
 }
 
-.header-search-input {
+.header-search-input  {
   height: 20px;
   width: 25%;
+  margin-right: 15px;
+  padding-right: 5px;
 }
 
 main {

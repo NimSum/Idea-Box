@@ -17,10 +17,11 @@ class Idea {
     this.saveToStorage(this.pullFromStorage);
   }
 
-  // updateContent(id, body) {
-  //   this.pullFromStorage[this.getIndex(id)].body = body;
-  //   this.saveToStorage(this.pullFromStorage);
-  // }
+  updateContent(id, body) {
+    console.log(id, body);
+    this.pullFromStorage[this.getIndex(id)].body = body;
+    this.saveToStorage(this.pullFromStorage);
+  }
 
   updateQuality(id, quality) {
     this.pullFromStorage[this.getIndex(id)].quality = quality;

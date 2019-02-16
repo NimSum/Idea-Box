@@ -12,6 +12,7 @@ saveBtn.addEventListener('click', createCard);
 cardSection.addEventListener('click', deleteCard);
 window.addEventListener('load', loadPreviousIdeas(ideaArray));
 cardSection.addEventListener('click', upvoteQual);
+cardSection.addEventListener('keydown', editBody);
 // titleInput.addEventListener('keydown', function);
 // ideaInput.addEventListener('keydown', function);
 
@@ -78,4 +79,11 @@ function generateIdeaCard(id, title, body, quality = 'Swill') {
     </article>` + cardSection.innerHTML
 }
 
-
+function editBody(e) {
+  // e.target.classList.contains('lighter-font');
+  var indexFound = e.target.parentElement.dataset.id
+  var editedBody = e.target.innerText;
+  var newInstance = new Idea();
+  newInstance.updateContent(parseInt(indexFound), editedBody);
+  console.log(editedBody);
+}
