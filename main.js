@@ -8,41 +8,27 @@ var ideaArticle = document.querySelector('article');
 var ideaArray = JSON.parse(localStorage.getItem('card')) || [];
 var newIdea;
 
-
 saveBtn.addEventListener('click', createCard);
 cardSection.addEventListener('click', deleteCard);
-window.addEventListener('load', loadPreviousIdeas);
+window.addEventListener('load', loadPreviousIdeas(ideaArray));
+cardSection.addEventListener('click', upvoteQual);
 // titleInput.addEventListener('keydown', function);
 // ideaInput.addEventListener('keydown', function);
 
 function createCard(event){
-  var timeStamp = Math.floor(Date.now() / 1000);
-
+  var timeStamp = Math.floor(Date.now());
   var ideaTitle = titleInput.value;
   var ideaBody = ideaInput.value;
-  // Data will replace name with data attribute
-  //use data attribute for time stamp
-  cardSection.innerHTML =
-  `<article class="rounded-edges" id="${timeStamp}">
-      <h2>${ideaTitle}</h2>
-      <p class="lighter-font" contenteditable="true">${ideaBody}</p>
-      <div>
-        <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
-        <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
-        <h5>Quality: <span id="quality">Swill</span></h5>
-        <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
-      </div>
-    </article>` + cardSection.innerHTML; 
-    newIdea = new Idea(timeStamp, ideaTitle, ideaBody);
-    ideaArray.unshift(newIdea);;
-    newIdea.saveToStorage(ideaArray);
-    queryButtons();
-    event.preventDefault();
+  generateIdeaCard(timeStamp, ideaTitle, ideaBody);
+  newIdea = new Idea(timeStamp, ideaTitle, ideaBody);
+  ideaArray.unshift(newIdea);;
+  newIdea.saveToStorage(ideaArray);
+  event.preventDefault();
 }
 
 function deleteCard(event){
    if(event.target.classList.contains('delete-btn')){
-    var articleId = event.target.parentElement.parentElement.parentElement.id;
+    var articleId = event.target.parentElement.parentElement.parentElement.dataset.id
     var deleteInstance = new Idea();
     deleteInstance.deleteFromStorage(parseInt(articleId));
     event.target.parentElement.parentElement.parentElement.remove();
@@ -50,28 +36,17 @@ function deleteCard(event){
   }
 }
 
-var upvoteBtn, downvoteBtn, ideaQuality;
-function loadPreviousIdeas(e) {
+function loadPreviousIdeas() {
+  ideaArray.reverse();
   for (var i = 0; i < ideaArray.length; i++) {
-    cardSection.innerHTML +=
-  `<article class="rounded-edges" id="${ideaArray[i].id}">
-      <h2>${ideaArray[i].title}</h2>
-      <p class="lighter-font" contenteditable="true">${ideaArray[i].body}</p>
-      <div>
-        <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
-        <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
-        <h5>Quality: <span id="quality">${ideaArray[i].quality}</span></h5>
-        <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
-      </div>
-    </article>`
+    generateIdeaCard(ideaArray[i].id, ideaArray[i].title, ideaArray[i].body,  ideaArray[i].quality);
   }
-  queryButtons();
-  e.preventDefault();
 }
 
 function upvoteQual(e) {
+  console.log(e)
   e.preventDefault();
-  var indexFound = e.target.parentElement.parentElement.parentElement.id;
+  var indexFound = e.target.parentElement.parentElement.parentElement.dataset.id
   var newInstance = new Idea();
   var qualityElem = e.target.parentElement.parentElement.children[2];
   if (e.target.classList.contains('upvote-btn') && qualityElem.innerText === 'Quality: Swill') {
@@ -89,16 +64,18 @@ function upvoteQual(e) {
   }
 }
 
-
-function queryButtons() {
-  upvoteBtn = document.querySelector('.upvote-btn');
-  downvoteBtn = document.querySelector('#downvote-btn');
-  ideaQuality = document.querySelector('#quality');
-
-  cardSection.addEventListener('click', upvoteQual);
-// downvoteBtn.addEventListener('click', downvoteQual);
+function generateIdeaCard(id, title, body, quality = 'Swill') {
+  cardSection.innerHTML =
+    `<article class="rounded-edges" data-id="${id}">
+      <h2>${title}</h2>
+      <p class="lighter-font" contenteditable="true">${body}</p>
+      <div>
+        <a href=""><img class="downvote-btn" src="images/downvote.svg" alt="downvote quality button"></a>
+        <a href=""><img class="upvote-btn" src="images/upvote.svg" alt="upvote quality button"></a>
+        <h5>Quality: <span id="quality">${quality}</span></h5>
+        <a href="" id="delete-btn"><img  class="delete-btn"src="images/delete.svg" alt="delete idea button"></a>
+      </div>
+    </article>` + cardSection.innerHTML
 }
-//refactor template literal
-
 
 
