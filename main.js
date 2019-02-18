@@ -5,26 +5,32 @@ var saveBtn = document.querySelector('#save-btn');
 var cardSection = document.querySelector('#card-section');
 var ideaArticle = document.querySelector('article');
 
-
 var ideaArray = JSON.parse(localStorage.getItem('card')) || [];
-var newIdea;
+var ideaInstance = new Idea();
 
+window.addEventListener('load', loadPreviousIdeas(ideaArray));
 saveBtn.addEventListener('click', createCard);
 cardSection.addEventListener('click', deleteCard);
-window.addEventListener('load', loadPreviousIdeas(ideaArray));
 cardSection.addEventListener('click', upvoteQual);
 cardSection.addEventListener('keydown', editBody);
-// searchInput.addEventListener('keyup', filterText);
+searchInput.addEventListener('keyup', function(e){
+  if(13 == e.keyCode && searchInput.value){
+    cardSection.innerHTML = '';
+    filterTitleBody(searchInput.value);
+  } else if (!searchInput.value){
+    cardSection.innerHTML = '';
+    ideaArray.reverse();
+    loadPreviousIdeas();
+  }
+});
 
-// titleInput.addEventListener('keydown', function);
-// ideaInput.addEventListener('keydown', function);
 
 function createCard(event){
   var timeStamp = Math.floor(Date.now());
   var ideaTitle = titleInput.value;
   var ideaBody = ideaInput.value;
   generateIdeaCard(timeStamp, ideaTitle, ideaBody);
-  newIdea = new Idea(timeStamp, ideaTitle, ideaBody);
+  var newIdea = new Idea(timeStamp, ideaTitle, ideaBody);
   ideaArray.unshift(newIdea);;
   newIdea.saveToStorage(ideaArray);
   event.preventDefault();
@@ -33,8 +39,7 @@ function createCard(event){
 function deleteCard(event){
    if(event.target.classList.contains('delete-btn')){
     var articleId = event.target.parentElement.parentElement.parentElement.dataset.id
-    var deleteInstance = new Idea();
-    deleteInstance.deleteFromStorage(parseInt(articleId));
+    ideaInstance.deleteFromStorage(parseInt(articleId));
     event.target.parentElement.parentElement.parentElement.remove();
     event.preventDefault();
   }
@@ -51,20 +56,19 @@ function upvoteQual(e) {
   console.log(e)
   e.preventDefault();
   var indexFound = e.target.parentElement.parentElement.parentElement.dataset.id
-  var newInstance = new Idea();
   var qualityElem = e.target.parentElement.parentElement.children[2];
   if (e.target.classList.contains('upvote-btn') && qualityElem.innerText === 'Quality: Swill') {
     qualityElem.innerText = 'Quality: Plausible';
-    newInstance.updateQuality(parseInt(indexFound), 'Plausible')
+    ideaInstance.updateQuality(parseInt(indexFound), 'Plausible')
   } else if (e.target.classList.contains('upvote-btn') && qualityElem.innerText === 'Quality: Plausible'){
     qualityElem.innerText = 'Quality: Genius';
-    newInstance.updateQuality(parseInt(indexFound), 'Genius')
+    ideaInstance.updateQuality(parseInt(indexFound), 'Genius')
   } else if (e.target.classList.contains('downvote-btn') && qualityElem.innerText === 'Quality: Genius') {
     qualityElem.innerText = 'Quality: Plausible';
-    newInstance.updateQuality(parseInt(indexFound), 'Plausible')
+    ideaInstance.updateQuality(parseInt(indexFound), 'Plausible')
   } else if (e.target.classList.contains('downvote-btn') && qualityElem.innerText === 'Quality: Plausible'){
     qualityElem.innerText = 'Quality: Swill';
-    newInstance.updateQuality(parseInt(indexFound), 'Swill')
+    ideaInstance.updateQuality(parseInt(indexFound), 'Swill')
   }
 }
 
@@ -83,64 +87,50 @@ function generateIdeaCard(id, title, body, quality = 'Swill') {
 }
 
 function editBody(e) {
-  // e.target.classList.contains('lighter-font');
   var indexFound = e.target.parentElement.dataset.id
   var editedBody = e.target.innerText;
-  var newInstance = new Idea();
-  newInstance.updateContent(parseInt(indexFound), editedBody);
+  ideaInstance.updateContent(parseInt(indexFound), editedBody);
   console.log(editedBody);
 }
 
-searchInput.addEventListener('keyup', function(e){
-  if(13 == e.keyCode && searchInput.value){
-    cardSection.innerHTML = '';
-    filterTitle();
-
-  } else if (!searchInput.value){
-    cardSection.innerHTML = '';
-    ideaArray.reverse();
-    loadPreviousIdeas();
-  }
-
-});
-
-
-function filterTitle(e) {
-  var newInstance = new Idea();
-  var updatedIdeaArray = newInstance.pullFromStorage;
-  var searchText = searchInput.value ;
+function filterTitleBody(searchText) {
+  var updatedIdeaArray = ideaInstance.pullFromStorage;
+  // var searchText = searchInput.value ;
   var filterTitle = updatedIdeaArray.filter(obj => obj.title.toUpperCase().indexOf(searchText.toUpperCase()) === 0);
+  var filterBody = updatedIdeaArray.filter(obj => obj.body.toUpperCase().indexOf(searchText.toUpperCase()) === 0);
   if(filterTitle.length) {
     for (var i = filterTitle.length - 1; i >= 0; i--) {
-        generateIdeaCard(filterTitle[i].id, filterTitle[i].title, filterTitle[i].body, filterTitle[i].quality);
+      generateIdeaCard(filterTitle[i].id, filterTitle[i].title, filterTitle[i].body, filterTitle[i].quality);
+    } 
+  } else if (filterBody.length) {
+    for (var i = filterBody.length - 1; i >= 0; i--) {
+      generateIdeaCard(filterBody[i].id, filterBody[i].title, filterBody[i].body, filterBody[i].quality);
     } 
   } else {
-    filterBody();
+    filterQuality(searchText);
   }
 }  
 
-function filterBody(e) {
-   var newInstance = new Idea();
-   var updatedIdeaArray = newInstance.pullFromStorage;
-   var searchText = searchInput.value ;
-    var filterBody = updatedIdeaArray.filter(obj => obj.body.toUpperCase().indexOf(searchText.toUpperCase()) === 0);
-    if(filterBody.length) {
-    for (var i = filterBody.length - 1; i >= 0; i--) {
-        generateIdeaCard(filterBody[i].id, filterBody[i].title, filterBody[i].body, filterBody[i].quality);
-    } 
-  } else {
-    filterQuality();
-  }
-}
+// function filterBody(e) {
+//    var ideaInstance = new Idea();
+//    var updatedIdeaArray = ideaInstance.pullFromStorage;
+//    var searchText = searchInput.value ;
+//     var filterBody = updatedIdeaArray.filter(obj => obj.body.toUpperCase().indexOf(searchText.toUpperCase()) === 0);
+//     if(filterBody.length) {
+//     for (var i = filterBody.length - 1; i >= 0; i--) {
+//         generateIdeaCard(filterBody[i].id, filterBody[i].title, filterBody[i].body, filterBody[i].quality);
+//     } 
+//   } else {
+//     filterQuality();
+//   }
+// }
 
-function filterQuality(e) {
-  var newInstance = new Idea();
-  var updatedIdeaArray = newInstance.pullFromStorage;
-  var searchText = searchInput.value ;
+function filterQuality(searchText) {
+  var updatedIdeaArray = ideaInstance.pullFromStorage;
   var filterQuality = updatedIdeaArray.filter(obj => obj.quality.toUpperCase().indexOf(searchText.toUpperCase()) === 0);
   if(filterQuality.length) {
     for (var i = filterQuality.length - 1; i >= 0; i--) {
-        generateIdeaCard(filterQuality[i].id, filterQuality[i].title, filterQuality[i].body, filterQuality[i].quality);
+      generateIdeaCard(filterQuality[i].id, filterQuality[i].title, filterQuality[i].body, filterQuality[i].quality);
     } 
   } 
 }
