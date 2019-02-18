@@ -30,6 +30,12 @@ h1 {
   width: 25%;
   margin-right: 15px;
   padding-right: 5px;
+  /* background: url('images/seach-icon.svg'), linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 88%, rgba(194,193,192,1) 88%, rgba(194,193,192,1) 100%);
+  background-position: right;
+  background-repeat: no-repeat;
+  border: 2px solid #C2C1C0;
+  min-width: 260px;
+  padding: 5px; */
 }
 
 main {
