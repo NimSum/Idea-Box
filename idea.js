@@ -11,19 +11,19 @@ class Idea {
   }
 
   deleteFromStorage(id) {
-    var ideaArray = this.pullFromStorage()
-    ideaArray.splice(this.getIndex(id), 1)
+    var ideaArray = this.pullFromStorage();
+    ideaArray.splice(this.getIndex(id), 1);
     this.saveToStorage(ideaArray);
   }
 
   updateContent(id, body) {
-    var ideaArray = this.pullFromStorage()
+    var ideaArray = this.pullFromStorage();
     ideaArray[this.getIndex(id)].body = body;
     this.saveToStorage(ideaArray);
   }
 
   updateQuality(id, quality) {
-    var ideaArray = this.pullFromStorage()
+    var ideaArray = this.pullFromStorage();
     ideaArray[this.getIndex(id)].quality = quality;
     this.saveToStorage(ideaArray);
   }
