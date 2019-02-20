@@ -1,18 +1,17 @@
 * {
- /* border: 1px dotted gray;*/
   font-family: "Open Sans", sans-serif;
 }
+
 body {
   margin: 0;
 }
-/*create a class for font weights*/
-/*create a selector for main input and button and set % width rule*/
+
 header {
+  align-items: center;
   background-color: #322A30;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
   padding: 0 2% 0 3%;
 }
 
@@ -85,6 +84,7 @@ article {
   border: 1px solid #D2CCCD;
   margin: 10px 0px;
 }
+
 article div {
   border-top: 1px solid #D2CCCD;
   display: flex;
@@ -92,10 +92,12 @@ article div {
   align-items: center;
   position: relative;
 }
+
 #delete-btn {
   position: absolute;
   right: 0;
 }
+
 .rounded-edges {
   border-radius: 5px;
 }
