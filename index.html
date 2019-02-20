@@ -9,22 +9,30 @@
 <body>
   <header>
     <h1><span class="header-title--color">ideabox</span>triples</h1>
-        <input id="search" class="header-search-input rounded-edges" type="text" placeholder="Search">
+    <input id="search" class="header-search-input rounded-edges" 
+    type="text" placeholder="Search">
   </header>
   <main>
-      <form action="#">
-        <label class="lighter-font" for="idea-title">Title</label><br/>
-        <input class="rounded-edges" id="idea-title" name="idea-title" type="text"><br/>
-        <label class="lighter-font" for="idea-body">Body</label><br/>
-        <textarea class="rounded-edges" id="idea-body" name="idea-body" type="text"></textarea><br/>
-        <button class="rounded-edges" id="save-btn" type="submit">Save</button>
-      </form>
+    <form action="#">
+      <label class="lighter-font" for="idea-title">Title</label><br/>
+      <input class="rounded-edges" id="idea-title" name="idea-title" type="text"><br/>
+      <label class="lighter-font" for="idea-body">Body</label><br/>
+      <textarea class="rounded-edges" id="idea-body" name="idea-body" type="text"></textarea><br/>
+      <button class="rounded-edges" id="save-btn" type="submit">Save</button>
+    </form>
   </main>
+  <section class="filter-quality">
+    <button id="swill-btn">Swill</button>
+    <button id="plausible-btn">Plausible</button>
+    <button id="genius-btn">Genius</button>
+  </section>
   <section id="card-section">
   </section>
-  <button id="moreOrLessIdeas">
-    Show More
-  </button>
+  <div>
+    <button id="moreOrLessIdeas">
+      Show More
+    </button>
+  </div>
 </body>
 <script src="idea.js"></script>
 <script src="main.js"></script>
