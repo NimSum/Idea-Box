@@ -32,10 +32,10 @@ h1 {
 }
 
 .header-search-input  {
+  background: url('images/search-icon-white.png'), linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 88%, rgba(194,193,192,1) 88%, rgba(194,193,192,1) 100%);
   background-position: right;
   background-repeat: no-repeat;
   background-size: contain;
-  background: url('images/search-icon-white.png'), linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 88%, rgba(194,193,192,1) 88%, rgba(194,193,192,1) 100%);
   border: 2px solid #C2C1C0;
   font-size: 1rem;
   height: 20px;
