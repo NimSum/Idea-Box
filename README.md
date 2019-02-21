@@ -17,6 +17,7 @@
 6.	Had fun working as a team.
 
 ### Here is the original comp and our project screen shots
+
 ![Screen shot for comp](images/compScreenShotDesktop.png)
 
 ![Screen shot for comp](images/compScreenShotMobile.png)
