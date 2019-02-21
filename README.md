@@ -18,7 +18,7 @@
 
 ### Here is the original comp and our project screen shots
 
-![Screen shot for comp](images/compScreenShotDesktopTop.png)
+![Screen shot for comp](images/compScreenShotDesktop.png)
 
 ![Screen shot for comp](images/compScreenShotMobile.png)
 
