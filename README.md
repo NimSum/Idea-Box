@@ -18,20 +18,15 @@
 
 ### Here is the original comp and our project screen shots
 
-![Screen shot for comp](images/compScreenShotDeskTop.png)
-Format: ![Desktop comp screen shot](http://frontend.turing.io/projects/ideabox-triples.html)
+![Screen shot for comp](images/compScreenShotDesktopTop.png)
 
 ![Screen shot for comp](images/compScreenShotMobile.png)
-Format: ![Mobile comp screen shot](http://frontend.turing.io/projects/ideabox-triples.html)
 
 ![Screen shot for project](images/IdeaBoxScreenShotTop.png)
-Format: ![Desktop project screen shot (top)]()
 
 ![Screen shot for project](images/IdeaBoxScreenShotBottom.png)
-Format: ![Desktop project screen shot (bottom)]()
 
 ![Mobile screen shot](images/IdeaBoxScreenShotMobileTop.png)
-Format: ![Mobile project screen shot (top)]()
 
 ![Mobile screen shot](images/IdeaBoxScreenShotMobileBottom.png)
-Format: ![Mobile project screen shot (bottom)]()
+
